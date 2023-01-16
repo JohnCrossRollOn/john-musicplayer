@@ -1,46 +1,14 @@
-import React, {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  ReactNode,
-  useRef,
-  AudioHTMLAttributes
-} from 'react'
-
-export const initialTracks = [
-  {
-    title: 'Rules of Nature',
-    artist: 'Metal Gear Rising',
-    src: 'Rules_of_Nature.mp3',
-    img: 'https://m.media-amazon.com/images/I/61gGuILomGL._SL1408_.jpg',
-    color: 'black'
-  },
-  {
-    title: 'The Stains of Time',
-    artist: 'Metal Gear Rising',
-    src: 'The_Stains_of_Time.mp3',
-    img: 'https://m.media-amazon.com/images/I/61gGuILomGL._SL1408_.jpg',
-    color: 'black'
-  },
-  {
-    title: 'The Only Thing I Know For Real',
-    artist: 'Metal Gear Rising',
-    src: 'The_Only_Thing_I_Know_For_Real.mp3',
-    img: 'https://m.media-amazon.com/images/I/61gGuILomGL._SL1408_.jpg',
-    color: 'black'
-  }
-]
+import React, { useEffect, useState, useRef } from 'react'
 
 export type Track = {
-  title?: string
+  title: string
   artist?: string
   src: string
   img?: string
   color?: string
 }
 
-export type Controls = {
+export type Control = {
   play: () => void
   pause: () => void
   playPause: () => void
@@ -51,6 +19,7 @@ export type Controls = {
 }
 export type Status = {
   current: Track
+  index: number
   playing: boolean
   progress: number
   duration: number
@@ -111,9 +80,11 @@ export default (initialTracks: Track[]) => {
   const pause = (): void => setPlaying(false)
 
   const setProgressStart = (value: number) => {
-    clearInterval(intervalRef.current)
-    audioRef.current.currentTime = value
-    setProgress(audioRef.current.currentTime)
+    if (!Number.isNaN(value) && typeof value === 'number') {
+      clearInterval(intervalRef.current)
+      audioRef.current.currentTime = value
+      setProgress(value)
+    }
   }
   const setProgressEnd = () => {
     audioRef.current.currentTime !== audioRef.current.duration
@@ -137,6 +108,6 @@ export default (initialTracks: Track[]) => {
       track: setTrack,
       progress: { start: setProgressStart, end: setProgressEnd }
     },
-    { current: tracks[index], playing, progress, duration }
-  ] as [Controls, Status]
+    { current: tracks[index], index, playing, progress, duration }
+  ] as [Control, Status]
 }
