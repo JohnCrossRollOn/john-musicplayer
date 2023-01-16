@@ -52,30 +52,10 @@ html {
   .range[type='range']::-ms-track {
      @apply w-full h-5 rounded-full cursor-pointer bg-black border border-black pt-2 pb-3 px-0;
   }
-  .range[type='range']::-ms-fill-lower {
-    background: #ac51b5;
-    border: 0px solid #000101;
-    border-radius: 50px;
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  }
-  .range[type='range']::-ms-fill-upper {
-    background: #ac51b5;
-    border: 0px solid #000101;
-    border-radius: 50px;
-    box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  }
   .range[type='range']::-ms-thumb {
    @apply p-3 rounded-full cursor-pointer bg-white border border-black after:bg-pink-500 -translate-y-1 transition-transform;
   }
-  .range[type='range']:focus::-ms-fill-lower {
-    background: #ac51b5;
-     outline: none;
-  }
-  .range[type='range']:focus::-ms-fill-upper {
-    background: #ac51b5;
-    outline: none;
-  }
-  .range[type='range']:active {
+  .range[type='range']::-ms-thumb:active {
     @apply translate-y-0;
   }
 }
